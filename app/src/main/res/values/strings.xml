@@ -9,4 +9,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="json_text_default_text">Here will be json(I hope)</string>
+    <string name="json_btn_default_text">Get JSON</string>
 </resources>

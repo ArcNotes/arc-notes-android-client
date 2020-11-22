@@ -27,9 +27,10 @@ class MainActivity : AppCompatActivity() {
     private fun grabJson() {
         doAsync {
             val restoreResp: RestoreResponse? = backupProvider.restore()
+
             uiThread {
                 if (restoreResp != null) {
-                    findViewById<TextView>(R.id.jsonText).text = restoreResp.notes.toString()
+                    findViewById<TextView>(R.id.jsonText).text = restoreResp.toString()
                 } else {
                     toast("Cannot restore sry :/")
                 }

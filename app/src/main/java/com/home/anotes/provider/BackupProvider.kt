@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.home.anotes.provider.payload.request.AuthRequest
+import com.home.anotes.provider.payload.request.BackupRequest
+import com.home.anotes.provider.payload.response.BackupResponse
 import com.home.anotes.provider.payload.response.RestoreResponse
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -164,6 +166,13 @@ class BackupProvider {
         return authToken
     }
 
+    private fun genHeaders(): Headers {
+        return Headers.headersOf(
+            "Content-Type", "application/json",
+            backupProps.authHeader, backupProps.authTokenPrefix + this.authToken.orEmpty()
+        )
+    }
+
     fun restore(): RestoreResponse? {
         val requestData = RequestData<Any>(
             RESTORE_PATH,
@@ -176,11 +185,16 @@ class BackupProvider {
         return response
     }
 
-    private fun genHeaders(): Headers {
-        return Headers.headersOf(
-            "Content-Type", "application/json",
-            backupProps.authHeader, backupProps.authTokenPrefix + this.authToken.orEmpty()
+    fun backup(toBackup: BackupRequest): BackupResponse? {
+        val requestData = RequestData(
+            BACKUP_PATH,
+            "POST",
+            genHeaders(),
+            null,
+            toBackup
         )
+        val response = execute(requestData, BackupResponse::class.java, REQ_ATTEMPTS_NUM)
+        return response
     }
 
     private data class RequestData<M>(

@@ -1,11 +1,11 @@
-package com.home.arcnotes
+package com.arcnotes
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import com.home.arcnotes.provider.BackupProvider
-import com.home.arcnotes.provider.payload.response.RestoreResponse
+import com.arcnotes.provider.BackupProvider
+import com.arcnotes.provider.payload.response.RestoreResponse
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread

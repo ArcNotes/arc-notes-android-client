@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "ANotes"
+rootProject.name = "arc-notes-android-client"

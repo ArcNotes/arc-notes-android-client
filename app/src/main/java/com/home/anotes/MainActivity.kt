@@ -1,20 +1,20 @@
 package com.home.anotes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import okhttp3.*
-import java.io.IOException
-import java.util.concurrent.atomic.AtomicInteger
+import com.home.anotes.provider.BackupProvider
+import com.home.anotes.provider.payload.response.RestoreResponse
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
 
-    val i = AtomicInteger()
-    val okHttpClient: OkHttpClient = OkHttpClient()
+    val backupProvider: BackupProvider = BackupProvider()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,33 +26,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun grabJson() {
-        val url = "http://192.168.0.104:8080/api/restore"
-        val fknToken = "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYwMzc0NjM1OSwiZXhwIjoxNjA2MTY1NTU5fQ.4saTXudbTFPsMHKx7pNvMsnBs-j0zuU7_DvAzjUGYE_CKgYRkFj9502u8zlfcBZh"
-
-        val request = Request.Builder()
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Authorization", fknToken)
-            .url(url)
-            .build()
-
-        okHttpClient.newCall(request)
-            .enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("okHttp", "Fuck you, API", e)
+    private fun grabJson() {
+        doAsync {
+            val restoreResp: RestoreResponse? = backupProvider.restore()
+            uiThread {
+                if (restoreResp != null) {
+                    findViewById<TextView>(R.id.jsonText).text = restoreResp.notes.toString()
+                } else {
+                    toast("Cannot restore sry :/")
                 }
-
-                override fun onResponse(call: Call, response: Response) {
-                    if (response.isSuccessful) {
-                        val json = response.body?.string()
-                        Log.i("okHttp", "Received json: $json")
-                        runOnUiThread {
-                            findViewById<TextView>(R.id.jsonText).setText(json)
-                        }
-                    }
-                }
-            });
-
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -1,4 +1,4 @@
-package com.home.anotes.provider.payload.model
+package com.home.arcnotes.provider.payload.model
 
 import java.time.LocalDateTime
 

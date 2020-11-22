@@ -1,13 +1,13 @@
-package com.home.anotes.provider
+package com.home.arcnotes.provider
 
 import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.home.anotes.provider.payload.request.AuthRequest
-import com.home.anotes.provider.payload.request.BackupRequest
-import com.home.anotes.provider.payload.response.BackupResponse
-import com.home.anotes.provider.payload.response.RestoreResponse
+import com.home.arcnotes.provider.payload.request.AuthRequest
+import com.home.arcnotes.provider.payload.request.BackupRequest
+import com.home.arcnotes.provider.payload.response.BackupResponse
+import com.home.arcnotes.provider.payload.response.RestoreResponse
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

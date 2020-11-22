@@ -1,4 +1,4 @@
-package com.home.anotes
+package com.home.arcnotes
 
 import org.junit.Test
 

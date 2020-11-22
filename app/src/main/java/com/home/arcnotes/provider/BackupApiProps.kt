@@ -1,4 +1,4 @@
-package com.home.anotes.provider
+package com.home.arcnotes.provider
 
 data class BackupApiProps(
     val url: String = "http://192.168.0.102:8080",

@@ -11,4 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="json_text_default_text">Here will be json(I hope)</string>
     <string name="json_btn_default_text">Get JSON</string>
+    <string name="default_noteTitle">Note title</string>
+    <string name="default_notePreview">Note preview</string>
 </resources>
